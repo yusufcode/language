@@ -6,8 +6,9 @@ router.post('/', async (req,res)=>{
   const newRecord = await Word(req.body)
   try{
     const savedRecord = await newRecord.save()
-    res.status(200).json(savedWord)
+    res.status(200).json(savedRecord)
   } catch(err){
+    console.log(err)
     res.status(500).json(err)
   }
 })
@@ -57,6 +58,8 @@ router.get('/', async (req,res)=>{
   const ru = req.query.ru
   const en = req.query.en
   const tr = req.query.tr
+  const ch = req.query.ch
+  const es = req.query.es
   const category = req.query.category
   try{
     let record;
@@ -66,6 +69,10 @@ router.get('/', async (req,res)=>{
       record = await Word.find({en})
     } else if(ru){
       record = await Word.find({ru})
+    } else if(ch){
+      record = await Word.find({ch})
+    } else if(es){
+      record = await Word.find({es})
     } else if(category){
       record = await Word.find({categories:category})
     } else{

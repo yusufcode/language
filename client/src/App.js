@@ -7,9 +7,10 @@ import HomePage from './pages/improveLanguage/home'
 import AdminLayout from './components/layouts/adminLayout'
 import AdminHomePage from './pages/admin/home'
 import AdminAddWordPage from './pages/admin/addWord'
-import AdminAddWordMultiPage from './pages/admin/addWordMulti'
+import AdminAddWordMultiplePage from './pages/admin/addWordMultiple/AddWordMultiple'
 import AdminListWordPage from './pages/admin/listWord'
 import AdminAddCategoryPage from './pages/admin/addCategory'
+import AdminAddCategoryMultiplePage from './pages/admin/addCategoryMultiple'
 import AdminListCategoryPage from './pages/admin/listCategory'
 
 
@@ -70,10 +71,13 @@ function App() {
         <Routes>
           <Route path="/" exact element={<HomePage/>} />
           <Route path="/admin" exact element={<AdminLayout><AdminHomePage/></AdminLayout>} />
+
           <Route path="/admin/add-word" element={<AdminLayout><AdminAddWordPage/></AdminLayout>} />
-          <Route path="/admin/add-word-multiple" element={<AdminLayout><AdminAddWordMultiPage/></AdminLayout>} />
+          <Route path="/admin/add-word-multiple" element={<AdminLayout><AdminAddWordMultiplePage/></AdminLayout>} />
           <Route path="/admin/list-word" element={<AdminLayout><AdminListWordPage/></AdminLayout>} />
+
           <Route path="/admin/add-category" element={<AdminLayout><AdminAddCategoryPage/></AdminLayout>} />
+          <Route path="/admin/add-category-multiple" element={<AdminLayout><AdminAddCategoryMultiplePage/></AdminLayout>} />
           <Route path="/admin/list-category" element={<AdminLayout><AdminListCategoryPage/></AdminLayout>} />
           </Routes>
       </Router>

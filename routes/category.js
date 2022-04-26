@@ -5,12 +5,10 @@ const Category = require('../models/Category')
 router.post('/', async (req,res)=>{
   const newRecord = await Category(req.body)
   try{
-    console.log(newRecord)
     const savedRecord = await newRecord.save()
     res.status(200).json(savedRecord)
   } catch(err){
-    console.log(newRecord)
-    res.status(500).json(err)
+    res.status(err.code).json(err)
   }
 })
 
@@ -58,6 +56,8 @@ router.get('/', async (req,res)=>{
   const ru = req.query.ru
   const en = req.query.en
   const tr = req.query.tr
+  const ch = req.query.ch
+  const es = req.query.es
   try{
     let record;
     if(ru){
@@ -66,6 +66,10 @@ router.get('/', async (req,res)=>{
       record = await Category.find({en})
     } else if(tr){
       record = await Category.find({tr})
+    } else if(ch){
+      record = await Word.find({ch})
+    } else if(es){
+      record = await Word.find({es})
     } else{
       record = await Category.find()
     }

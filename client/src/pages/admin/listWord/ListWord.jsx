@@ -11,7 +11,6 @@ import 'react-toastify/dist/ReactToastify.css';
 import DeleteIcon from '@mui/icons-material/Delete';
 import AutorenewIcon from '@mui/icons-material/Autorenew';
 
-
 export default function ListWord() {
 
   useEffect(()=>{
@@ -26,15 +25,15 @@ export default function ListWord() {
     })
   },[axios.get('/api/word')])
 
-  const {notification} = useContext(MainContext)
-
-  const [listWords, setListWords] = useState()
-
   const [searchParams, setSearchParams] = useSearchParams();
   const queryCategory = searchParams.get("category")
   const queryRu = searchParams.get("ru")
   const queryEn = searchParams.get("en")
   const queryTr = searchParams.get("tr")
+
+  const {notification} = useContext(MainContext)
+
+  const [listWords, setListWords] = useState()
 
   function update(e, wordId){
 

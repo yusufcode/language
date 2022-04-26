@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react'
+import { useSearchParams } from 'react-router-dom'
 import Helmet from 'react-helmet'
 import axios from 'axios'
 import Loader from 'react-loader-spinner'
@@ -13,14 +14,28 @@ import AutorenewIcon from '@mui/icons-material/Autorenew';
 export default function ListCategory() {
 
   useEffect(()=>{
-    axios.get('/api/category').then((res)=>{
+    let queryRuApi = queryRu || ''
+    let queryEnApi = queryEn || ''
+    let queryTrApi = queryTr || ''
+    let queryChApi = queryCh || ''
+    let queryEsApi = queryEs || ''
+    let queryAll = `?ru=${queryRuApi}&en=${queryEnApi}&tr=${queryTrApi}&ch=${queryChApi}&es=${queryEsApi}`
+    
+    axios.get(`/api/category${queryAll}`).then((res)=>{
       setListCategories(res.data)
     })
   },[axios.get('/api/category')])
 
+  const [searchParams, setSearchParams] = useSearchParams();
+  const queryRu = searchParams.get("ru")
+  const queryEn = searchParams.get("en")
+  const queryTr = searchParams.get("tr")
+  const queryCh = searchParams.get("ch")
+  const queryEs = searchParams.get("es")
+
   const {notification} = useContext(MainContext)
 
-  const [listCategoryies, setListCategories] = useState()
+  const [listCategoryies, setListCategories] = useState([])
 
   function update(e, categoryId){
 
@@ -45,9 +60,13 @@ export default function ListCategory() {
     })
 
   }
+
+  const miniContext = {
+    listCategoryies, setListCategories
+  }
   
   return (
-    <>
+    <MainContext.Provider value={miniContext}>
       <Helmet>
         <title>List Category - Improve Language - Admin</title>
       </Helmet> 
@@ -61,7 +80,7 @@ export default function ListCategory() {
             return -1
           }
         }).map((listCategoryiesItem, key) => 
-          <WordDropdown list="categories" item={listCategoryiesItem} key={key}>
+          <WordDropdown list="categories" item={listCategoryiesItem} key={key} key2={key}>
             <ContinueButton 
               padding="5px 10px"
               borderColor="#852020" 
@@ -78,6 +97,6 @@ export default function ListCategory() {
         )
         : <Loader type="TailSpin" color="#d5d5d5" height={25} width={25}/>
       }
-    </>
+    </MainContext.Provider>
   )
 }

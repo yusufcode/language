@@ -3,28 +3,39 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema({
   ru:{
     type:String,
-    unique:true,
-    required:true
+    required:false,
+    unique:false,
+    sparse:true
   },
   en:{
     type:String,
-    unique:true,
-    required:true
+    required:false,
+    unique:false,
+    sparse:true
   },
   tr:{
     type:String,
-    unique:true
+    required:false,
+    unique:false,
+    sparse:true
   },
   ch:{
     type:String,
-    unique:true
+    required:false,
+    unique:false,
+    sparse:true
   },
   es:{
     type:String,
-    unique:true
+    required:false,
+    unique:false,
+    sparse:true
   },
   categories:{
-    type:Array
+    type:Array,
+    required:false,
+    unique:false,
+    sparse:true
   }
 })
 

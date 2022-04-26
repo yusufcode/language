@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from 'react'
+import { MainContext, useContext } from '../../context'
 import {Dropdown, Header, HeaderLabel, HeaderWord, DownIconStyled, Body, LanguageDiv, LanguageLabel, LanguageInput, Footer} from './css'
 
 export default function WordFunc(props) {  
@@ -16,6 +17,14 @@ export default function WordFunc(props) {
     }
     
   }
+
+  const {listCategoryies, setListCategories} = useContext(MainContext)
+
+  function changeInput(key, e){
+    const values = [...listCategoryies]
+    values[key][e.target.name] = e.target.value
+    setListCategories(values)
+  }
   
   return (
     <Dropdown>
@@ -24,46 +33,52 @@ export default function WordFunc(props) {
         <DownIconStyled/>
       </Header>
 
-      <Body>
-        <LanguageDiv>
-          <LanguageLabel>Russian:</LanguageLabel>
-          <LanguageInput className='ruWordInput' defaultValue={props.item.ru} />
-        </LanguageDiv>
-
-        <LanguageDiv>
-          <LanguageLabel>English:</LanguageLabel>
-          <LanguageInput className='enWordInput' defaultValue={props.item.en} />
-        </LanguageDiv>
-
-        <LanguageDiv>
-          <LanguageLabel>Turkish:</LanguageLabel>
-          <LanguageInput className='trWordInput' defaultValue={props.item.tr} />
-        </LanguageDiv>
-
-        <LanguageDiv>
-          <LanguageLabel>Chinese:</LanguageLabel>
-          <LanguageInput className='chWordInput' defaultValue={props.item.ch} />
-        </LanguageDiv>
-
-        <LanguageDiv>
-          <LanguageLabel>Spanish:</LanguageLabel>
-          <LanguageInput className='esWordInput' defaultValue={props.item.es} />
-        </LanguageDiv>
-
-        {
-          dropShow && props.list === 'words' ?
+      {
+      dropShow == dropShow ?
+      <>
+        <Body>
           <LanguageDiv>
-            <LanguageLabel>Categories:</LanguageLabel>
-            <LanguageInput className='categoriesWordInput' defaultValue={props.item.categories} />
+            <LanguageLabel>Russian:</LanguageLabel>
+            <LanguageInput className='ruWordInput' value={props.item.ru} name="ru" onChange={(e) => changeInput(props.key2, e)} />
           </LanguageDiv>
-          : false
-        }
 
-      </Body>
+          <LanguageDiv>
+            <LanguageLabel>English:</LanguageLabel>
+            <LanguageInput className='enWordInput' value={props.item.en} name="en" onChange={(e) => changeInput(props.key2, e)} />
+          </LanguageDiv>
 
-      <Footer>
-        {props.children}
-      </Footer>
+          <LanguageDiv>
+            <LanguageLabel>Turkish:</LanguageLabel>
+            <LanguageInput className='trWordInput' value={props.item.tr} name="tr" onChange={(e) => changeInput(props.key2, e)} />
+          </LanguageDiv>
+
+          <LanguageDiv>
+            <LanguageLabel>Chinese:</LanguageLabel>
+            <LanguageInput className='chWordInput' value={props.item.ch} name="ch" onChange={(e) => changeInput(props.key2, e)} />
+          </LanguageDiv>
+
+          <LanguageDiv>
+            <LanguageLabel>Spanish:</LanguageLabel>
+            <LanguageInput className='esWordInput' value={props.item.es} name="es" onChange={(e) => changeInput(props.key2, e)} />
+          </LanguageDiv>
+
+          {
+            props.list === 'words' ?
+            <LanguageDiv>
+              <LanguageLabel>Categories:</LanguageLabel>
+              <LanguageInput className='categoriesWordInput' value={props.item.categories} name="categories" onChange={(e) => changeInput(props.key2, e)} />
+            </LanguageDiv>
+            : false
+          }
+
+        </Body>
+
+        <Footer>
+          {props.children}
+        </Footer>
+      </>
+      : false
+      }
     </Dropdown>
   )
 }

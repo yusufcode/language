@@ -10,7 +10,7 @@ import {TableCover, Table, Thead, Tbody, Tr, Td, Input, ButtonsDiv, DeleteLabel}
 import * as XLSX from 'xlsx'
 import InputFile from '../../../components/inputFile'
 
-export default function AddWordMulti() {
+export default function AddWordMultiple() {
 
   const {notification} = useContext(MainContext)
 
@@ -59,7 +59,7 @@ export default function AddWordMulti() {
   }
 
   function addRowTable(){
-    setRowsTable([...rowsTable, {ru:"",en:"",tr:"",ch:"",es:""}])
+    setRowsTable([...rowsTable, {ru:"",en:"",tr:"",ch:"",es:"",categories:""}])
     // const allTr = document.querySelector(Tbody).querySelectorAll(Tr)
     // for (let i = 0; i < allTr.length; i++) {
     //   console.log(allTr[i])
@@ -67,10 +67,29 @@ export default function AddWordMulti() {
   }
 
   function addToDatabase(){
+
+    let categoriesArray = []
+
+    for (let i = 0; i < rowsTable.length; i++) {
+      categoriesArray[i] = rowsTable[i].categories.split(',')
+    }
+
+    for (let k = 0; k < categoriesArray.length; k++) {
+      for (let i = 0; i < categoriesArray[k].length; i++) {
+        categoriesArray[k][i] = categoriesArray[k][i].trim()
+        if(categoriesArray[k][i] === ''){
+          categoriesArray[k].splice(i, 1)
+          i--
+        }
+      }
+    }
+
+    for (let i = 0; i < rowsTable.length; i++) {
+      rowsTable[i].categories = categoriesArray[i]
+    }
     
     for (let i = 0; i < rowsTable.length; i++) {
-      console.log(rowsTable[i])
-      axios.post('/api/category', rowsTable[i]).then((res)=>{
+      axios.post('/api/word', rowsTable[i]).then((res)=>{
         notification('success', '')
       }).catch((err) => {
         notification('error', err.response.statusText)
@@ -95,6 +114,7 @@ export default function AddWordMulti() {
                 <Td>Turkish</Td>
                 <Td>Chinese</Td>
                 <Td>Spanish</Td>
+                <Td>Categories</Td>
                 <Td>Actions</Td>
               </Tr>
             </Thead>
@@ -107,6 +127,7 @@ export default function AddWordMulti() {
                     <Td><Input value={rowTable.tr} name="tr" onChange={(e) => changeInput(key, e)}/></Td>
                     <Td><Input value={rowTable.ch} name="ch" onChange={(e) => changeInput(key, e)}/></Td>
                     <Td><Input value={rowTable.es} name="es" onChange={(e) => changeInput(key, e)}/></Td>
+                    <Td><Input value={rowTable.categories} name="categories" onChange={(e) => changeInput(key, e)}/></Td>
                     <Td><DeleteLabel onClick={(e)=>removeRowTable(key)} >Remove</DeleteLabel></Td>
                   </Tr>
                 ))
