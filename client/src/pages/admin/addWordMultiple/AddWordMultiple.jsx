@@ -2,13 +2,13 @@ import React, {useState} from 'react'
 import Helmet from 'react-helmet'
 import axios from 'axios'
 import { MainContext, useContext } from '../../../context'
-import ContinueButton from '../../../components/continueButton'
+import Button from '../../../components/button'
 import AddIcon from '@mui/icons-material/Add';
 import UploadFileIcon from '@mui/icons-material/UploadFile';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import {TableCover, Table, Thead, Tbody, Tr, Td, Input, ButtonsDiv, DeleteLabel} from './css'
 import * as XLSX from 'xlsx'
-import InputFile from '../../../components/inputFile'
+import InputFileButton from '../../../components/inputFileButton'
 
 export default function AddWordMultiple() {
 
@@ -59,7 +59,7 @@ export default function AddWordMultiple() {
   }
 
   function addRowTable(){
-    setRowsTable([...rowsTable, {ru:"",en:"",tr:"",ch:"",es:"",categories:""}])
+    setRowsTable([...rowsTable, {ru:"",gb:"",tr:"",ch:"",es:"",categories:""}])
     // const allTr = document.querySelector(Tbody).querySelectorAll(Tr)
     // for (let i = 0; i < allTr.length; i++) {
     //   console.log(allTr[i])
@@ -123,7 +123,7 @@ export default function AddWordMultiple() {
                 rowsTable.map((rowTable,key)=>(
                   <Tr key={key}>
                     <Td><Input value={rowTable.ru} name="ru" onChange={(e) => changeInput(key, e)}/></Td>
-                    <Td><Input value={rowTable.en} name="en" onChange={(e) => changeInput(key, e)}/></Td>
+                    <Td><Input value={rowTable.gb} name="gb" onChange={(e) => changeInput(key, e)}/></Td>
                     <Td><Input value={rowTable.tr} name="tr" onChange={(e) => changeInput(key, e)}/></Td>
                     <Td><Input value={rowTable.ch} name="ch" onChange={(e) => changeInput(key, e)}/></Td>
                     <Td><Input value={rowTable.es} name="es" onChange={(e) => changeInput(key, e)}/></Td>
@@ -135,39 +135,9 @@ export default function AddWordMultiple() {
           </Tbody>
         </Table>
         <ButtonsDiv>
-          <ContinueButton 
-            padding="5px 10px"
-            color="#a1a1a1" 
-            borderColor="#a1a1a1" 
-            hoverColor="white"
-            hoverBorderColor="#a1a1a1"
-            hoverBackgroundColor="#a1a1a1"
-            margin="0 2.5px 0 0"
-            onClick={()=>addRowTable()}
-          >Add New Row <AddCircleOutlineIcon/></ContinueButton>
-
-          <InputFile 
-            padding="5px 10px"
-            color="#288f88" 
-            borderColor="#288f88" 
-            hoverColor="white" 
-            hoverBorderColor="#288f88" 
-            hoverBackgroundColor="#288f88" 
-            accept=".xlsx"
-            onChange={(e)=>importExcelFile(e)}
-          >Import Excel File <UploadFileIcon/></InputFile>
-
-          <ContinueButton 
-            padding="5px 10px"
-            color="#288f88" 
-            borderColor="#288f88" 
-            hoverColor="white" 
-            hoverBorderColor="#288f88" 
-            hoverBackgroundColor="#288f88" 
-            margin="0 0 0 auto"
-            onClick={(e)=>addToDatabase(e)}
-          >Add to Database<AddIcon/></ContinueButton>
-
+          <Button type="outline" size="md" color="#a1a1a1" margin="0 2.5px 0 0" onClick={()=>addRowTable()}>Add New Row <AddCircleOutlineIcon/></Button>
+          <InputFileButton type="outline" size="md" color="#002c9d" accept=".xlsx" onChange={(e)=>importExcelFile(e)}>Import Excel File <UploadFileIcon/></InputFileButton>
+          <Button type="primary" size="md" color="#002c9d" margin="0 0 0 auto" onClick={(e)=>addToDatabase(e)}>Add to Database<AddIcon/></Button>
         </ButtonsDiv>
       </TableCover>
     </>

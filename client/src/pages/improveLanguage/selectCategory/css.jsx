@@ -17,6 +17,6 @@ export const Li = styled.li`
   -webkit-tap-highlight-color: transparent;
 
   &.selected{
-    color: #0048ff;
+    color: #002c9d;
   }
 `

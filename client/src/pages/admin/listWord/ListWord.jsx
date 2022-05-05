@@ -5,7 +5,7 @@ import axios from 'axios'
 import Loader from 'react-loader-spinner'
 import { MainContext, useContext } from '../../../context'
 import WordDropdown from '../../../components/wordDropdown'
-import ContinueButton from '../../../components/continueButton'
+import Button from '../../../components/button'
 import {Dropdown} from '../../../components/wordDropdown/css'
 import 'react-toastify/dist/ReactToastify.css';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -16,19 +16,19 @@ export default function ListWord() {
   useEffect(()=>{
     let queryCategoryApi = queryCategory || ''
     let queryRuApi = queryRu || ''
-    let queryEnApi = queryEn || ''
+    let queryGbApi = queryGb || ''
     let queryTrApi = queryTr || ''
-    let queryAll = `?category=${queryCategoryApi}&ru=${queryRuApi}&en=${queryEnApi}&tr=${queryTrApi}`
+    let queryAll = `?category=${queryCategoryApi}&ru=${queryRuApi}&gb=${queryGbApi}&tr=${queryTrApi}`
 
     axios.get(`/api/word${queryAll}`).then((res)=>{
       setListWords(res.data)
     })
-  },[axios.get('/api/word')])
+  },[])
 
   const [searchParams, setSearchParams] = useSearchParams();
   const queryCategory = searchParams.get("category")
   const queryRu = searchParams.get("ru")
-  const queryEn = searchParams.get("en")
+  const queryGb = searchParams.get("gb")
   const queryTr = searchParams.get("tr")
 
   const {notification} = useContext(MainContext)
@@ -37,12 +37,12 @@ export default function ListWord() {
 
   function update(e, wordId){
 
-    const ruWordInput = e.target.closest(Dropdown).querySelector('.ruWordInput').value
-    const enWordInput = e.target.closest(Dropdown).querySelector('.enWordInput').value
-    const trWordInput = e.target.closest(Dropdown).querySelector('.trWordInput').value
-    const chWordInput = e.target.closest(Dropdown).querySelector('.chWordInput').value
-    const esWordInput = e.target.closest(Dropdown).querySelector('.esWordInput').value
-    const categoriesWordInput = e.target.closest(Dropdown).querySelector('.categoriesWordInput').value
+    const ruWordInput = e.target.closest(Dropdown).querySelector('.ruInput').value
+    const gbWordInput = e.target.closest(Dropdown).querySelector('.gbInput').value
+    const trWordInput = e.target.closest(Dropdown).querySelector('.trInput').value
+    const chWordInput = e.target.closest(Dropdown).querySelector('.chInput').value
+    const esWordInput = e.target.closest(Dropdown).querySelector('.esInput').value
+    const categoriesWordInput = e.target.closest(Dropdown).querySelector('.categoriesInput').value
     const categoriesArray = categoriesWordInput.split(',')
 
     for (let i = 0; i < categoriesArray.length; i++) {
@@ -54,7 +54,7 @@ export default function ListWord() {
 
     axios.put(`/api/word/${wordId}`, {
       ru: ruWordInput,
-      en: enWordInput,
+      gb: gbWordInput,
       tr: trWordInput,
       ch: chWordInput,
       es: esWordInput,
@@ -76,9 +76,13 @@ export default function ListWord() {
     })
 
   }
+
+  const miniContext = {
+    listWords, setListWords
+  }
   
   return (
-    <>
+    <MainContext.Provider value={miniContext}>
       <Helmet>
         <title>List Word - Improve Language - Admin</title>
       </Helmet> 
@@ -92,23 +96,13 @@ export default function ListWord() {
             return -1
           }
         }).map((listWordsItem, key) => 
-          <WordDropdown list="words" item={listWordsItem} key={key}>
-            <ContinueButton 
-              padding="5px 10px"
-              borderColor="#852020" 
-              color="#852020" 
-              onClick={() => remove(listWordsItem._id)}
-            ><DeleteIcon/></ContinueButton>
-            <ContinueButton 
-              padding="5px 10px"
-              borderColor="#288f88" 
-              color="#288f88" 
-              onClick={(e) => update(e, listWordsItem._id)}
-            ><AutorenewIcon/></ContinueButton>
+          <WordDropdown list="words" item={listWordsItem} key={key} key2={key}>
+            <Button type="outline" size="sm" color="#852020" onClick={() => remove(listWordsItem._id)}>Remove<DeleteIcon/></Button>
+            <Button type="outline" size="sm" color="#002c9d" onClick={(e) => update(e, listWordsItem._id)}>Update<AutorenewIcon/></Button>
           </WordDropdown> 
         )
         : <Loader type="TailSpin" color="#d5d5d5" height={25} width={25}/>
       }
-    </>
+    </MainContext.Provider>
   )
 }

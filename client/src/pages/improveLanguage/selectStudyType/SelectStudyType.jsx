@@ -1,7 +1,7 @@
 import React from 'react'
 import { MainContext, useContext } from '../../../context'
 import { CardRow, Card, Text } from './css'
-import ContinueButton from '../../../components/continueButton/ContinueButton'
+import Button from '../../../components/button/Button'
 
 export default function SelectStudyType() {
 
@@ -39,9 +39,9 @@ export default function SelectStudyType() {
 
       {
         studyType ?
-        <ContinueButton position='fixed' onClick={() => continueButton()}>Continue</ContinueButton>
+        <Button position='fixed' type="outline" size="md" color="#002c9d" onClick={() => continueButton()}>Continue</Button>
         : 
-        <ContinueButton position='fixed' className='disabled'>Continue</ContinueButton>
+        <Button position='fixed' type="outline" size="md" color="#002c9d" className='disabled'>Continue</Button>
       }
     </>
   )

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { MainContext, useContext } from '../../../context'
 import { Title, Ul, Li } from './css'
-import ContinueButton from '../../../components/continueButton/ContinueButton'
+import Button from '../../../components/button/Button'
 import Loader from "react-loader-spinner";
 import axios from 'axios';
 
@@ -15,7 +15,7 @@ export default function SelectCategory() {
 
   function getWords(cat){
     if(cat){
-      axios.get(`/api/word?cat=${cat}`).then((res) => {
+      axios.get(`/api/word?category=${cat}`).then((res) => {
         setAllWords(res.data)
         setNeverAskedWords(res.data)
       })
@@ -24,7 +24,7 @@ export default function SelectCategory() {
 
   const [categories, setCategories] = useState()
 
-  const {setScreenSelectCategory, setScreenTest, studyType, category, setCategory, setAllWords, 
+  const {setScreenSelectCategory, setScreenTest, firstLanguage, studyType, category, setCategory, setAllWords, 
     setNeverAskedWords} = useContext(MainContext)
 
   function select(e, selected){
@@ -50,11 +50,11 @@ export default function SelectCategory() {
       {
         categories ?
         <Ul>
-          {categories.map((categoriesItem, key) => 
+          {categories.map((categoriesItem, key) =>
             <Li key={key} onClick={(e) => {
-              select(e, categoriesItem.name)
-              getWords(categoriesItem.name)
-            }}>{categoriesItem.name}</Li>
+              select(e, categoriesItem.gb)
+              getWords(categoriesItem.gb)
+            }}>{categoriesItem[firstLanguage]}</Li>
           )}
         </Ul>
         : <Loader type="TailSpin" color="#d5d5d5" height={25} width={25}/>
@@ -62,9 +62,9 @@ export default function SelectCategory() {
 
       {
         category ?
-        <ContinueButton position='fixed' onClick={() => continueButton()}>Continue</ContinueButton>
+        <Button position='fixed' type="outline" size="md" color="#002c9d" onClick={() => continueButton()}>Continue</Button>
         : 
-        <ContinueButton position='fixed' className='disabled'>Continue</ContinueButton>
+        <Button position='fixed' type="outline" size="md" color="#002c9d" className='disabled'>Continue</Button>
       }
     </>
   )

@@ -1,5 +1,5 @@
 import styled from 'styled-components/macro'
-import ContinueButton from '../../../components/continueButton/ContinueButton'
+import Button from '../../../components/button/Button'
 
 export const GeneralDiv = styled.div`
   max-width: 600px;
@@ -79,7 +79,7 @@ export const AnswerP = styled.p`
   pointer-events: none;
 `
 
-export const ContinueButtonFull = styled(ContinueButton)`
+export const ButtonFull = styled(Button)`
   width: 100%;
   position: relative;
   bottom: inherit;

@@ -2,7 +2,7 @@ import React from 'react'
 import Helmet from 'react-helmet'
 import axios from 'axios'
 import { MainContext, useContext } from '../../../context'
-import ContinueButton from '../../../components/continueButton'
+import Button from '../../../components/button'
 import WordComp from '../../../components/wordDynamic'
 import {Word} from '../../../components/wordDynamic/css'
 import AddIcon from '@mui/icons-material/Add';
@@ -13,13 +13,13 @@ export default function AddWord() {
 
   function add(e){
 
-    const ruWordInput = e.target.closest(Word).querySelector('.ruWordInput')
-    const enWordInput = e.target.closest(Word).querySelector('.enWordInput')
-    const trWordInput = e.target.closest(Word).querySelector('.trWordInput')
-    const chWordInput = e.target.closest(Word).querySelector('.chWordInput')
-    const esWordInput = e.target.closest(Word).querySelector('.esWordInput')
-    const categoriesWordInput = e.target.closest(Word).querySelector('.categoriesWordInput')
-    const categoriesArray = categoriesWordInput.value.split(',')
+    const ruInput = e.target.closest(Word).querySelector('.ruInput')
+    const gbInput = e.target.closest(Word).querySelector('.gbInput')
+    const trInput = e.target.closest(Word).querySelector('.trInput')
+    const chInput = e.target.closest(Word).querySelector('.chInput')
+    const esInput = e.target.closest(Word).querySelector('.esInput')
+    const categoriesInput = e.target.closest(Word).querySelector('.categoriesInput')
+    const categoriesArray = categoriesInput.value.split(',')
 
     for (let i = 0; i < categoriesArray.length; i++) {
       categoriesArray[i] = categoriesArray[i].trim()
@@ -29,23 +29,22 @@ export default function AddWord() {
     }
 
     axios.post('/api/word', {
-      ru: ruWordInput.value,
-      en: enWordInput.value,
-      tr: trWordInput.value,
-      ch: chWordInput.value,
-      es: esWordInput.value,
+      ru: ruInput.value,
+      gb: gbInput.value,
+      tr: trInput.value,
+      ch: chInput.value,
+      es: esInput.value,
       categories: categoriesArray
     }).then((res)=>{
       notification('success', '')
-      ruWordInput.value = ''
-      enWordInput.value = ''
-      trWordInput.value = ''
-      chWordInput.value = ''
-      esWordInput.value = ''
-      categoriesWordInput.value = ''
+      ruInput.value = ''
+      gbInput.value = ''
+      trInput.value = ''
+      chInput.value = ''
+      esInput.value = ''
+      categoriesInput.value = ''
     }).catch((err) => {
       notification('error', err.response.statusText)
-      console.log(err.response)
     })
 
   }
@@ -57,12 +56,7 @@ export default function AddWord() {
       </Helmet> 
 
       <WordComp add="word">
-        <ContinueButton 
-          padding="5px 10px"
-          borderColor="#288f88" 
-          color="#288f88" 
-          onClick={(e)=>add(e)}
-        ><AddIcon/></ContinueButton>
+        <Button type="primary" size="md" color="#002c9d" onClick={(e)=>add(e)}>Add to Database<AddIcon/></Button>
       </WordComp>
     </>
   )

@@ -25,7 +25,7 @@ export const FlagCard = styled.div`
   -webkit-tap-highlight-color: transparent;
 
   &.selected{
-    border-color: #0048ff;
+    border-color: #002c9d;
   }
 
   & .flagImg{

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { MainContext, useContext } from '../../../context'
 import styled from 'styled-components'
-import { GeneralDiv, QuestionDiv, QuestionP, AnswerGeneralDiv, AnswerDiv, AnswerP, ContinueButtonFull } from './css'
+import { GeneralDiv, QuestionDiv, QuestionP, AnswerGeneralDiv, AnswerDiv, AnswerP, ButtonFull } from './css'
 import Loader from "react-loader-spinner";
 
 export default function Test() {
@@ -154,7 +154,7 @@ export default function Test() {
         </AnswerGeneralDiv>
 
         {continueButtonVisibility ? 
-        <ContinueButtonFull onClick={() => getQA()}>Next</ContinueButtonFull>
+        <ButtonFull type="outline" size="md" color="#002c9d" onClick={() => getQA()}>Next</ButtonFull>
         : false
         }
       </GeneralDiv>

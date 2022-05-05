@@ -1,7 +1,8 @@
 import React from 'react'
 import { MainContext, useContext } from '../../../context'
 import {Helmet} from 'react-helmet'
-import { BodyCover } from './css'
+import { BodyCover, TestText, TestTextTitle, TestTextResult } from './css'
+import Navbar from '../../../components/navbar'
 import SelectLanguage from '../selectLanguage/'
 import SelectStudyType from '../selectStudyType/'
 import SelectCategory from '../selectCategory/'
@@ -32,11 +33,33 @@ export default function Home() {
       </Helmet>  
 
       <BodyCover>
-        {/* <p>First Language: {firstLanguage}</p>
-        <p>Second Language: {secondLanguage}</p>
-        <p>Study Type: {studyType}</p>
-        <p>Category: {category}</p>
-        <p>Never Asked Questions: {neverAskedWords ? neverAskedWords.length : false}</p> */}
+
+        <TestText>
+          <TestTextTitle>First Language:</TestTextTitle>
+          <TestTextResult>{firstLanguage || 'undefined'}</TestTextResult>
+        </TestText>
+
+        <TestText>
+          <TestTextTitle>Second Language:</TestTextTitle>
+          <TestTextResult>{secondLanguage || 'undefined'}</TestTextResult>
+        </TestText>
+
+        <TestText>
+          <TestTextTitle>Study Type:</TestTextTitle>
+          <TestTextResult>{studyType || 'undefined'}</TestTextResult>
+        </TestText>
+        
+        <TestText>
+          <TestTextTitle>Category:</TestTextTitle>
+          <TestTextResult>{category || 'undefined'}</TestTextResult>
+        </TestText>
+        
+        <TestText>
+          <TestTextTitle>Never Asked Questions:</TestTextTitle>
+          <TestTextResult>{neverAskedWords ? neverAskedWords.length : 'undefined'}</TestTextResult>
+        </TestText>
+
+        <Navbar/>
 
         {
           screenSelectLanguage ? 

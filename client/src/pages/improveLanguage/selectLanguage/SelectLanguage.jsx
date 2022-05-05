@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 import { MainContext, useContext } from '../../../context'
 import Flag from 'react-country-flag'
 import {FlagRow, FlagCard, LanguageList, LanguageListItem, SelectLanguageGeneral} from './css'
-import ContinueButton from '../../../components/continueButton/ContinueButton'
+import Button from '../../../components/button/Button'
 
 export default function SelectLanguage() {
 
@@ -101,9 +101,9 @@ export default function SelectLanguage() {
 
       {
         (firstLanguage && secondLanguage) ?
-        <ContinueButton position='fixed' onClick={() => continueButton()}>Continue</ContinueButton>
+        <Button position='fixed' type="outline" size="md" color="#002c9d" onClick={() => continueButton()}>Continue</Button>
         : 
-        <ContinueButton position='fixed' className='disabled'>Continue</ContinueButton>
+        <Button position='fixed' type="outline" size="md" color="#002c9d" className='disabled'>Continue</Button>
       }
 
 

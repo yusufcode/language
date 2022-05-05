@@ -24,7 +24,7 @@ export const Card = styled.div`
   user-select: none;
 
   &.selected{
-    border-color: #0048ff;
+    border-color: #002c9d;
   }
 `
 

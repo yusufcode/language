@@ -5,7 +5,7 @@ import axios from 'axios'
 import Loader from 'react-loader-spinner'
 import { MainContext, useContext } from '../../../context'
 import WordDropdown from '../../../components/wordDropdown'
-import ContinueButton from '../../../components/continueButton'
+import Button from '../../../components/button'
 import {Dropdown} from '../../../components/wordDropdown/css'
 import 'react-toastify/dist/ReactToastify.css';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -15,20 +15,20 @@ export default function ListCategory() {
 
   useEffect(()=>{
     let queryRuApi = queryRu || ''
-    let queryEnApi = queryEn || ''
+    let queryGbApi = queryGb || ''
     let queryTrApi = queryTr || ''
     let queryChApi = queryCh || ''
     let queryEsApi = queryEs || ''
-    let queryAll = `?ru=${queryRuApi}&en=${queryEnApi}&tr=${queryTrApi}&ch=${queryChApi}&es=${queryEsApi}`
+    let queryAll = `?ru=${queryRuApi}&gb=${queryGbApi}&tr=${queryTrApi}&ch=${queryChApi}&es=${queryEsApi}`
     
     axios.get(`/api/category${queryAll}`).then((res)=>{
       setListCategories(res.data)
     })
-  },[axios.get('/api/category')])
+  },[])
 
   const [searchParams, setSearchParams] = useSearchParams();
   const queryRu = searchParams.get("ru")
-  const queryEn = searchParams.get("en")
+  const queryGb = searchParams.get("gb")
   const queryTr = searchParams.get("tr")
   const queryCh = searchParams.get("ch")
   const queryEs = searchParams.get("es")
@@ -39,10 +39,18 @@ export default function ListCategory() {
 
   function update(e, categoryId){
 
-    const categoryInput = e.target.closest(Dropdown).querySelector('.categoryInput').value
+    const ruInput = e.target.closest(Dropdown).querySelector('.ruInput').value
+    const gbInput = e.target.closest(Dropdown).querySelector('.gbInput').value
+    const trInput = e.target.closest(Dropdown).querySelector('.trInput').value
+    const chInput = e.target.closest(Dropdown).querySelector('.chInput').value
+    const esInput = e.target.closest(Dropdown).querySelector('.esInput').value
 
     axios.put(`/api/category/${categoryId}`, {
-      name: categoryInput
+      ru: ruInput,
+      gb: gbInput,
+      tr: trInput,
+      ch: chInput,
+      es: esInput
     }).then((res) => {
       notification('success', '')
     }).catch((err) => {
@@ -81,18 +89,8 @@ export default function ListCategory() {
           }
         }).map((listCategoryiesItem, key) => 
           <WordDropdown list="categories" item={listCategoryiesItem} key={key} key2={key}>
-            <ContinueButton 
-              padding="5px 10px"
-              borderColor="#852020" 
-              color="#852020" 
-              onClick={() => remove(listCategoryiesItem._id)}
-            ><DeleteIcon/></ContinueButton>
-            <ContinueButton 
-              padding="5px 10px"
-              borderColor="#288f88" 
-              color="#288f88" 
-              onClick={(e) => update(e, listCategoryiesItem._id)}
-            ><AutorenewIcon/></ContinueButton>
+            <Button type="outline" size="sm" color="#852020" onClick={() => remove(listCategoryiesItem._id)}>Remove<DeleteIcon/></Button>
+            <Button type="outline" size="sm" color="#002c9d" onClick={(e) => update(e, listCategoryiesItem._id)}>Update<AutorenewIcon/></Button>
           </WordDropdown> 
         )
         : <Loader type="TailSpin" color="#d5d5d5" height={25} width={25}/>

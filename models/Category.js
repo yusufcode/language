@@ -7,7 +7,7 @@ const Schema = mongoose.Schema({
     unique: false,
     sparse: true
   },
-  en:{
+  gb:{
     type:String,
     required:false,
     unique: false,
