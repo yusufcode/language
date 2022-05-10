@@ -5,7 +5,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 
 export default function NavbarFunc() {
 
-  const [showMenu, setShowMenu] = useState(1)
+  const [showMenu, setShowMenu] = useState(0)
 
   const {
     setScreenSelectLanguage, 
