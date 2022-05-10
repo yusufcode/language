@@ -14,24 +14,19 @@ import AutorenewIcon from '@mui/icons-material/Autorenew';
 export default function ListCategory() {
 
   useEffect(()=>{
-    let queryRuApi = queryRu || ''
-    let queryGbApi = queryGb || ''
-    let queryTrApi = queryTr || ''
-    let queryChApi = queryCh || ''
-    let queryEsApi = queryEs || ''
-    let queryAll = `?ru=${queryRuApi}&gb=${queryGbApi}&tr=${queryTrApi}&ch=${queryChApi}&es=${queryEsApi}`
+    let queryRu = searchParams.get("ru") || ''
+    let queryGb = searchParams.get("gb") || ''
+    let queryTr = searchParams.get("tr") || ''
+    let queryCh = searchParams.get("ch") || ''
+    let queryEs = searchParams.get("es") || ''
+    let queryAll = `?ru=${queryRu}&gb=${queryGb}&tr=${queryTr}&ch=${queryCh}&es=${queryEs}`
     
     axios.get(`/api/category${queryAll}`).then((res)=>{
       setListCategories(res.data)
     })
   },[])
 
-  const [searchParams, setSearchParams] = useSearchParams();
-  const queryRu = searchParams.get("ru")
-  const queryGb = searchParams.get("gb")
-  const queryTr = searchParams.get("tr")
-  const queryCh = searchParams.get("ch")
-  const queryEs = searchParams.get("es")
+  const [searchParams] = useSearchParams();
 
   const {notification} = useContext(MainContext)
 

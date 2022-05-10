@@ -14,22 +14,20 @@ import AutorenewIcon from '@mui/icons-material/Autorenew';
 export default function ListWord() {
 
   useEffect(()=>{
-    let queryCategoryApi = queryCategory || ''
-    let queryRuApi = queryRu || ''
-    let queryGbApi = queryGb || ''
-    let queryTrApi = queryTr || ''
-    let queryAll = `?category=${queryCategoryApi}&ru=${queryRuApi}&gb=${queryGbApi}&tr=${queryTrApi}`
+    let queryCategory = searchParams.get("category") || ''
+    let queryRu = searchParams.get("ru") || ''
+    let queryGb = searchParams.get("gb") || ''
+    let queryTr = searchParams.get("tr") || ''
+    let queryCh = searchParams.get("ch") || ''
+    let queryEs = searchParams.get("es") || ''
+    let queryAll = `?category=${queryCategory}&ru=${queryRu}&gb=${queryGb}&tr=${queryTr}&ch=${queryCh}&es=${queryEs}`
 
     axios.get(`/api/word${queryAll}`).then((res)=>{
       setListWords(res.data)
     })
   },[])
 
-  const [searchParams, setSearchParams] = useSearchParams();
-  const queryCategory = searchParams.get("category")
-  const queryRu = searchParams.get("ru")
-  const queryGb = searchParams.get("gb")
-  const queryTr = searchParams.get("tr")
+  const [searchParams] = useSearchParams()
 
   const {notification} = useContext(MainContext)
 

@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import { MainContext, useContext } from '../../../context'
-import styled from 'styled-components'
 import { GeneralDiv, QuestionDiv, QuestionP, AnswerGeneralDiv, AnswerDiv, AnswerP, ButtonFull } from './css'
 import Loader from "react-loader-spinner";
 
