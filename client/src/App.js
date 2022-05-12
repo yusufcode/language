@@ -34,7 +34,7 @@ function App() {
 
   function notification(status, message){
     if(status === 'success'){
-      toast.success(`Success! ${message}`, {
+      toast.success(`Success! ${message}`, { 
         position: toast.POSITION.TOP_RIGHT,
         autoClose: 2000,
         hideProgressBar: false,

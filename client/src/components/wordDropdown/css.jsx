@@ -7,19 +7,22 @@ export const Dropdown = styled.div`
   border-radius: 12.5px;
   margin-bottom: 5px;
   user-select: none;
+
+  &.drop .body{
+    height: max-content;
+    padding: 5px 15px;
+    border-top: 1px solid #e5e5e5;
+  }
+
+  &.drop .icon{
+    transform: rotate(180deg);
+  }
 `
 
 export const Header = styled.div`
   padding: 5px 15px;
   display: flex;
   cursor: pointer;
-`
-
-export const HeaderLabel = styled.label`
-  display: inline-block;
-  margin: 0;
-  margin-right: 5px;
-  pointer-events: none;
 `
 
 export const HeaderWord = styled.p`
@@ -33,17 +36,13 @@ export const DownIconStyled = styled(DownIcon)`
   height: 20px!important;
   margin-left: auto;
   color: #333;
-  transition: 0.2s all;
   pointer-events: none;
-
-  &.rotate{
-    transform: rotate(180deg);
-  }
 `
 
 export const Body = styled.div`
-  padding: 5px 15px 0 15px;
-  border-top: 1px solid #e5e5e5;
+  height: 0;
+  overflow: hidden;
+  transition: 0.5s all;
 `
 
 export const LanguageDiv = styled.div`
@@ -73,7 +72,6 @@ export const LanguageInput = styled.input`
 
 export const Footer = styled.div`
   text-align: center;
-  padding: 5px 15px;
   justify-content: space-between;
   display: flex;
   flex-direction: row;

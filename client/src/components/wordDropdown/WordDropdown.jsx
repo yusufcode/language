@@ -1,19 +1,19 @@
 import React, {useEffect, useState} from 'react'
 import { MainContext, useContext } from '../../context'
-import {Dropdown, Header, HeaderLabel, HeaderWord, DownIconStyled, Body, LanguageDiv, LanguageLabel, LanguageInput, Footer} from './css'
+import {Dropdown, Header, HeaderWord, DownIconStyled, Body, LanguageDiv, LanguageLabel, LanguageInput, Footer} from './css'
 
 export default function WordFunc(props) {  
 
-  const [dropShow, setDropShow] = useState(0)
+  const [dropdown, setDropdown] = useState(0)
 
   function drop(e){
 
-    if(dropShow){
-      e.target.querySelector(DownIconStyled).classList.remove('rotate')
-      setDropShow(0)
+    if(dropdown){
+      setDropdown(0)
+      e.target.closest(Dropdown).classList.remove('drop')
     } else{
-      e.target.querySelector(DownIconStyled).classList.add('rotate')
-      setDropShow(1)
+      setDropdown(1)
+      e.target.closest(Dropdown).classList.add('drop') 
     }
     
   }
@@ -34,57 +34,53 @@ export default function WordFunc(props) {
   
   return (
     <Dropdown>
+
       <Header onClick={(e) => drop(e)}>
         <HeaderWord>{props.item.gb}</HeaderWord>
-        <DownIconStyled/>
+        <DownIconStyled className='icon'/>
       </Header>
 
-      {
-      dropShow == dropShow ?
-      <>
-        <Body>
+      <Body className='body'>
+        <LanguageDiv>
+          <LanguageLabel>Russian:</LanguageLabel>
+          <LanguageInput className='ruInput' value={props.item.ru} name="ru" onChange={(e) => changeInput(props.key2, e)} />
+        </LanguageDiv>
+
+        <LanguageDiv>
+          <LanguageLabel>English:</LanguageLabel>
+          <LanguageInput className='gbInput' value={props.item.gb} name="gb" onChange={(e) => changeInput(props.key2, e)} />
+        </LanguageDiv>
+
+        <LanguageDiv>
+          <LanguageLabel>Turkish:</LanguageLabel>
+          <LanguageInput className='trInput' value={props.item.tr} name="tr" onChange={(e) => changeInput(props.key2, e)} />
+        </LanguageDiv>
+
+        <LanguageDiv>
+          <LanguageLabel>Chinese:</LanguageLabel>
+          <LanguageInput className='chInput' value={props.item.ch} name="ch" onChange={(e) => changeInput(props.key2, e)} />
+        </LanguageDiv>
+
+        <LanguageDiv>
+          <LanguageLabel>Spanish:</LanguageLabel>
+          <LanguageInput className='esInput' value={props.item.es} name="es" onChange={(e) => changeInput(props.key2, e)} />
+        </LanguageDiv>
+
+        {
+          props.list === 'words' ?
           <LanguageDiv>
-            <LanguageLabel>Russian:</LanguageLabel>
-            <LanguageInput className='ruInput' value={props.item.ru} name="ru" onChange={(e) => changeInput(props.key2, e)} />
+            <LanguageLabel>Categories:</LanguageLabel>
+            <LanguageInput className='categoriesInput' value={props.item.categories} name="categories" onChange={(e) => changeInput(props.key2, e)} />
           </LanguageDiv>
-
-          <LanguageDiv>
-            <LanguageLabel>English:</LanguageLabel>
-            <LanguageInput className='gbInput' value={props.item.gb} name="gb" onChange={(e) => changeInput(props.key2, e)} />
-          </LanguageDiv>
-
-          <LanguageDiv>
-            <LanguageLabel>Turkish:</LanguageLabel>
-            <LanguageInput className='trInput' value={props.item.tr} name="tr" onChange={(e) => changeInput(props.key2, e)} />
-          </LanguageDiv>
-
-          <LanguageDiv>
-            <LanguageLabel>Chinese:</LanguageLabel>
-            <LanguageInput className='chInput' value={props.item.ch} name="ch" onChange={(e) => changeInput(props.key2, e)} />
-          </LanguageDiv>
-
-          <LanguageDiv>
-            <LanguageLabel>Spanish:</LanguageLabel>
-            <LanguageInput className='esInput' value={props.item.es} name="es" onChange={(e) => changeInput(props.key2, e)} />
-          </LanguageDiv>
-
-          {
-            props.list === 'words' ?
-            <LanguageDiv>
-              <LanguageLabel>Categories:</LanguageLabel>
-              <LanguageInput className='categoriesInput' value={props.item.categories} name="categories" onChange={(e) => changeInput(props.key2, e)} />
-            </LanguageDiv>
-            : false
-          }
-
-        </Body>
+          : false
+        }
 
         <Footer>
           {props.children}
         </Footer>
-      </>
-      : false
-      }
+
+      </Body>
+    
     </Dropdown>
   )
 }
