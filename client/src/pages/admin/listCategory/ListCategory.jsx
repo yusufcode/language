@@ -21,7 +21,7 @@ export default function ListCategory() {
     let queryEs = searchParams.get("es") || ''
     let queryAll = `?ru=${queryRu}&gb=${queryGb}&tr=${queryTr}&ch=${queryCh}&es=${queryEs}`
     
-    axios.get(`/api/category${queryAll}`).then((res)=>{
+    axios.get(`https://yusufcode-language-server.herokuapp.com/api/category${queryAll}`).then((res)=>{
       setListCategories(res.data)
     })
   },[])
@@ -40,7 +40,7 @@ export default function ListCategory() {
     const chInput = e.target.closest(Dropdown).querySelector('.chInput').value
     const esInput = e.target.closest(Dropdown).querySelector('.esInput').value
 
-    axios.put(`/api/category/${categoryId}`, {
+    axios.put(`https://yusufcode-language-server.herokuapp.com/api/category/${categoryId}`, {
       ru: ruInput,
       gb: gbInput,
       tr: trInput,
@@ -56,7 +56,7 @@ export default function ListCategory() {
 
   function remove(categoryId){
 
-    axios.delete(`/api/category/${categoryId}`).then((res) => {
+    axios.delete(`https://yusufcode-language-server.herokuapp.com/api/category/${categoryId}`).then((res) => {
       notification('success', '')
     }).catch((err) => {
       notification('error', err.response.statusText)

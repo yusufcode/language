@@ -19,7 +19,7 @@ export default function AddCategory() {
     const chInput = e.target.closest(Word).querySelector('.chInput')
     const esInput = e.target.closest(Word).querySelector('.esInput')
 
-    axios.post('/api/category', {
+    axios.post('https://yusufcode-language-server.herokuapp.com/api/category', {
         ru: ruInput.value,
         gb: gbInput.value,
         tr: trInput.value,

@@ -22,7 +22,7 @@ export default function ListWord() {
     let queryEs = searchParams.get("es") || ''
     let queryAll = `?category=${queryCategory}&ru=${queryRu}&gb=${queryGb}&tr=${queryTr}&ch=${queryCh}&es=${queryEs}`
 
-    axios.get(`/api/word${queryAll}`).then((res)=>{
+    axios.get(`https://yusufcode-language-server.herokuapp.com/api/word${queryAll}`).then((res)=>{
       setListWords(res.data)
     })
   },[])
@@ -50,7 +50,7 @@ export default function ListWord() {
       }
     }
 
-    axios.put(`/api/word/${wordId}`, {
+    axios.put(`https://yusufcode-language-server.herokuapp.com/api/word/${wordId}`, {
       ru: ruWordInput,
       gb: gbWordInput,
       tr: trWordInput,
@@ -67,7 +67,7 @@ export default function ListWord() {
 
   function remove(wordId){
 
-    axios.delete(`/api/word/${wordId}`).then((res) => {
+    axios.delete(`https://yusufcode-language-server.herokuapp.com/api/word/${wordId}`).then((res) => {
       notification('success', '')
     }).catch((err) => {
       notification('error', err.response.statusText)

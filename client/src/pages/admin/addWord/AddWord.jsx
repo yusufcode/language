@@ -28,7 +28,7 @@ export default function AddWord() {
       }
     }
 
-    axios.post('/api/word', {
+    axios.post('https://yusufcode-language-server.herokuapp.com/api/word', {
       ru: ruInput.value,
       gb: gbInput.value,
       tr: trInput.value,

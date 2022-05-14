@@ -1,9 +1,12 @@
 const express = require('express')
 const app = express()
+const dotenv = require('dotenv')
 const bodyParser = require('body-parser')
 const mongoose = require('mongoose')
+const path = require('path')
 
 //APP USE
+dotenv.config()
 app.use(express.json())
 app.use(bodyParser.json({limit: "30mb", extended: true}))
 app.use(bodyParser.urlencoded({limit: "30mb", extended: true}))
@@ -15,8 +18,13 @@ const ImproveLanguageCategoriesRoute = require('./routes/category')
 app.use('/api/word', ImproveLanguageRoute)
 app.use('/api/category', ImproveLanguageCategoriesRoute)
 
+app.use(express.static(path.join(__dirname, "/client")))
+app.get('*', (req,res)=>{
+  res.sendFile(path.join(__dirname, '/client/build', 'index.html'))
+})
+
 //DATABASE
-const databaseUrl = 'mongodb+srv://node_user:node_user_123@cluster0.u4slu.mongodb.net/yusufcode?retryWrites=true&w=majority'
+const databaseUrl = process.env.MONGO_DB
 mongoose.connect(databaseUrl, {
   useNewUrlParser: true, useUnifiedTopology: true
 }).then(() => {
@@ -24,7 +32,7 @@ mongoose.connect(databaseUrl, {
 })
 
 //SERVER
-const port = 5000
+const port = process.env.PORT || 5000
 app.listen(port, () => {
   console.log(`Server Listening on Port ${port}!`)
 })
