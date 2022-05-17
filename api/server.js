@@ -18,9 +18,9 @@ const ImproveLanguageCategoriesRoute = require('./routes/category')
 app.use('/api/word', ImproveLanguageRoute)
 app.use('/api/category', ImproveLanguageCategoriesRoute)
 
-app.use(express.static(path.join(__dirname, "/client/build"))) 
+app.use(express.static(path.join(__dirname, "../client/build"))) 
 app.get('*', (req,res)=>{
-  res.sendFile(path.join(__dirname, '/client/build', 'index.html'))
+  res.sendFile(path.join(__dirname, '../client/build', 'index.html'))
 })
 
 //DATABASE
