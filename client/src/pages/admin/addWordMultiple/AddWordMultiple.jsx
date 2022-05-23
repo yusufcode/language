@@ -89,7 +89,7 @@ export default function AddWordMultiple() {
     }
     
     for (let i = 0; i < rowsTable.length; i++) {
-      axios.post('https://yusufcode-language-server.herokuapp.com/api/word', rowsTable[i]).then((res)=>{
+      axios.post('/api/word', rowsTable[i]).then((res)=>{
         notification('success', '')
       }).catch((err) => {
         notification('error', err.response.statusText)

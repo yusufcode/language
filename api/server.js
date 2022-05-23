@@ -24,7 +24,7 @@ app.get('*', (req,res)=>{
 })
 
 //DATABASE
-const databaseUrl = process.env.MONGO_DB
+const databaseUrl = process.env.MONGO_DB || ''
 mongoose.connect(databaseUrl, {
   useNewUrlParser: true, useUnifiedTopology: true
 }).then(() => {

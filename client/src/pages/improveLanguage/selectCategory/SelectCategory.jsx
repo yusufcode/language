@@ -8,14 +8,14 @@ import axios from 'axios';
 export default function SelectCategory() {
 
   useEffect(()=>{
-    axios.get('https://yusufcode-language-server.herokuapp.com/api/category').then((res) => {
+    axios.get('/api/category').then((res) => {
       setCategories(res.data)
     })
   },[])
 
   function getWords(cat){
     if(cat){
-      axios.get(`https://yusufcode-language-server.herokuapp.com/api/word?category=${cat}`).then((res) => {
+      axios.get(`/api/word?category=${cat}`).then((res) => {
         setAllWords(res.data)
         setNeverAskedWords(res.data)
       })

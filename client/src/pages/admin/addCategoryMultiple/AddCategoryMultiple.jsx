@@ -69,7 +69,7 @@ export default function AddCategoryMultiple() {
   function addToDatabase(){
     
     for (let i = 0; i < rowsTable.length; i++) {
-      axios.post('https://yusufcode-language-server.herokuapp.com/api/category', rowsTable[i]).then((res)=>{
+      axios.post('/api/category', rowsTable[i]).then((res)=>{
         notification('success', '')
       }).catch((err) => {
         notification('error', err.response.statusText)
